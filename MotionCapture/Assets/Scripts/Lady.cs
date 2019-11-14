@@ -5,6 +5,9 @@ public class Lady : MonoBehaviour
     private Animator ani;               // 動畫元件
     private Rigidbody rig;              // 剛體元件
 
+    [Header("速度"), Range(0f, 80f)]
+    public float speed = 1.5f;
+
     [Header("動畫控制器：參數名稱")]
     public string parRun = "跑步開關";
     public string parAtk = "攻擊觸發";
@@ -18,7 +21,8 @@ public class Lady : MonoBehaviour
         rig = GetComponent<Rigidbody>();
     }
 
-    private void Update()
+    // FixedUpade 1 格執行 0.002 秒
+    private void FixedUpdate()
     {
         Walk();
         Attack();
@@ -36,6 +40,8 @@ public class Lady : MonoBehaviour
     {
         // 動畫：跑步 - 按下前後時 true
         ani.SetBool(parRun, Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0);
+        //rig.AddForce(0, 0, Input.GetAxisRaw("Vertical") * speed);             // 以世界座標移動
+        rig.AddForce(transform.forward * Input.GetAxisRaw("Vertical") * speed); // 以區域座標移動
     }
 
     /// <summary>
