@@ -8,7 +8,7 @@ public class Lady : MonoBehaviour
     public string parRun = "跑步開關";
     public string parAtk = "攻擊觸發";
     public string parDam = "受傷觸發";
-    public string parJump = "跳躍開關";
+    public string parJump = "跳躍觸發";
     public string parDead = "死亡開關";
 
     private void Start()
@@ -19,6 +19,8 @@ public class Lady : MonoBehaviour
     private void Update()
     {
         Walk();
+        Attack();
+        Jump();
     }
 
     // 定義方法
@@ -31,7 +33,7 @@ public class Lady : MonoBehaviour
     private void Walk()
     {
         // 動畫：跑步 - 按下前後時 true
-        ani.SetBool(parRun, Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0);
+        ani.SetBool(parRun, Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0);
     }
 
     /// <summary>
@@ -39,7 +41,8 @@ public class Lady : MonoBehaviour
     /// </summary>
     private void Attack()
     {
-
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+            ani.SetTrigger(parAtk);
     }
 
     /// <summary>
@@ -47,7 +50,8 @@ public class Lady : MonoBehaviour
     /// </summary>
     private void Jump()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+            ani.SetTrigger(parJump);
     }
 
     /// <summary>
@@ -55,7 +59,7 @@ public class Lady : MonoBehaviour
     /// </summary>
     private void Hurt()
     {
-
+        ani.SetTrigger(parDam);
     }
 
     /// <summary>
@@ -63,6 +67,6 @@ public class Lady : MonoBehaviour
     /// </summary>
     private void Dead()
     {
-
+        ani.SetBool(parDead, true);
     }
 }
