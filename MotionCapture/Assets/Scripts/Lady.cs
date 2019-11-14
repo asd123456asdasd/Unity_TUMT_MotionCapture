@@ -3,6 +3,7 @@
 public class Lady : MonoBehaviour
 {
     private Animator ani;               // 動畫元件
+    private Rigidbody rig;              // 剛體元件
 
     [Header("動畫控制器：參數名稱")]
     public string parRun = "跑步開關";
@@ -13,7 +14,8 @@ public class Lady : MonoBehaviour
 
     private void Start()
     {
-        ani = GetComponent<Animator>(); // 動畫元件欄位 =  取得元件<泛型>();
+        ani = GetComponent<Animator>();     // 動畫元件欄位 =  取得元件<泛型>();
+        rig = GetComponent<Rigidbody>();
     }
 
     private void Update()
