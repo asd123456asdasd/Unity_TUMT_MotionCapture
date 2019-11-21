@@ -40,8 +40,13 @@ public class Lady : MonoBehaviour
     {
         // 動畫：跑步 - 按下前後時 true
         ani.SetBool(parRun, Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0);
-        //rig.AddForce(0, 0, Input.GetAxisRaw("Vertical") * speed);             // 以世界座標移動
-        rig.AddForce(transform.forward * Input.GetAxisRaw("Vertical") * speed); // 以區域座標移動
+        //rig.AddForce(0, 0, Input.GetAxisRaw("Vertical") * speed);                 // 以世界座標移動
+        //rig.AddForce(transform.forward * Input.GetAxisRaw("Vertical") * speed);   // 以區域座標移動
+
+        // 前方 transform.forward (0, 0, 1)
+        // 右方 transform.right   (1, 0, 0)
+        // 上方 transform.up      (0, 1, 0)
+        rig.AddForce(transform.forward * Input.GetAxisRaw("Vertical") * speed + transform.right * Input.GetAxisRaw("Horizontal") * speed);
     }
 
     /// <summary>
