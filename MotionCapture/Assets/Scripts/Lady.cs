@@ -5,8 +5,10 @@ public class Lady : MonoBehaviour
     private Animator ani;               // 動畫元件
     private Rigidbody rig;              // 剛體元件
 
-    [Header("速度"), Range(0f, 80f)]
+    [Header("走路速度"), Range(0f, 80f)]
     public float speed = 1.5f;
+    [Header("旋轉速度"), Range(1f, 100f)]
+    public float turn = 1.5f;
 
     [Header("動畫控制器：參數名稱")]
     public string parRun = "跑步開關";
@@ -60,8 +62,9 @@ public class Lady : MonoBehaviour
     private void Turn()
     {
         float x = Input.GetAxis("Mouse X");   // 滑鼠左右，左 -1、右 1
-        print("玩家滑鼠 X：" + x);
-        transform.Rotate(0, x, 0);
+        //print("玩家滑鼠 X：" + x);
+        // Time.deltaTime 一幀的時間
+        transform.Rotate(0, x * turn * Time.deltaTime, 0);
     }
 
     /// <summary>
