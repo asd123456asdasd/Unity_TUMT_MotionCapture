@@ -21,11 +21,16 @@ public class Lady : MonoBehaviour
         rig = GetComponent<Rigidbody>();
     }
 
-    // FixedUpade 1 格執行 0.002 秒
+    private void Update()
+    {
+        Turn();
+        Attack();
+    }
+
+    // FixedUpade 1 格執行 0.002 秒 (有使用物理寫在這裡)
     private void FixedUpdate()
     {
         Walk();
-        Attack();
         Jump();
     }
 
@@ -34,7 +39,7 @@ public class Lady : MonoBehaviour
     // void 無回傳
 
     /// <summary>
-    /// 走路
+    /// 前後左右走路
     /// </summary>
     private void Walk()
     {
@@ -47,6 +52,16 @@ public class Lady : MonoBehaviour
         // 右方 transform.right   (1, 0, 0)
         // 上方 transform.up      (0, 1, 0)
         rig.AddForce(transform.forward * Input.GetAxisRaw("Vertical") * speed + transform.right * Input.GetAxisRaw("Horizontal") * speed);
+    }
+
+    /// <summary>
+    /// 左右旋轉
+    /// </summary>
+    private void Turn()
+    {
+        float x = Input.GetAxis("Mouse X");   // 滑鼠左右，左 -1、右 1
+        print("玩家滑鼠 X：" + x);
+        transform.Rotate(0, x, 0);
     }
 
     /// <summary>
