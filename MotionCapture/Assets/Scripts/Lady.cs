@@ -36,6 +36,17 @@ public class Lady : MonoBehaviour
         Jump();
     }
 
+    // 觸發事件：碰到勾選 IsTrigger 碰撞器開始時候執行一次
+    private void OnTriggerEnter(Collider other)
+    {
+        print(other.tag);
+
+        if (other.tag == "陷阱")
+        {
+            Hurt();
+        }
+    }
+
     // 定義方法
     // 修飾詞 傳回類型 方法名稱 (參數) { 敘述 }
     // void 無回傳
