@@ -25,6 +25,10 @@ public class Lady : MonoBehaviour
 
     private void Update()
     {
+        // 判斷動畫狀態
+        print("是否為攻擊動畫：" + ani.GetCurrentAnimatorStateInfo(0).IsName("攻擊"));
+        print("是否為受傷動畫：" + ani.GetCurrentAnimatorStateInfo(0).IsName("受傷"));
+
         Turn();
         Attack();
     }
