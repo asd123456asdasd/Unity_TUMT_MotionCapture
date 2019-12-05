@@ -17,6 +17,26 @@ public class Lady : MonoBehaviour
     public string parJump = "跳躍觸發";
     public string parDead = "死亡開關";
 
+    // 屬性 可以設定權限 取得 get、設定 set
+    // 修飾詞 類型 名稱 { 取得 設定 }
+    public int MyProperty { get; set; } // 可以取得 可以設定
+
+    public bool isAttack
+    {
+        get
+        {
+            return ani.GetCurrentAnimatorStateInfo(0).IsName("攻擊");
+        }
+    }
+
+    public bool isDamage
+    {
+        get
+        {
+            return ani.GetCurrentAnimatorStateInfo(0).IsName("受傷");
+        }
+    }
+
     private void Start()
     {
         ani = GetComponent<Animator>();     // 動畫元件欄位 =  取得元件<泛型>();
@@ -26,8 +46,10 @@ public class Lady : MonoBehaviour
     private void Update()
     {
         // 判斷動畫狀態
-        print("是否為攻擊動畫：" + ani.GetCurrentAnimatorStateInfo(0).IsName("攻擊"));
-        print("是否為受傷動畫：" + ani.GetCurrentAnimatorStateInfo(0).IsName("受傷"));
+        //print("是否為攻擊動畫：" + isAttack);
+        //print("是否為受傷動畫：" + isDamage);
+
+        if (isAttack || isDamage) return;   // 跳出
 
         Turn();
         Attack();
@@ -36,6 +58,8 @@ public class Lady : MonoBehaviour
     // FixedUpade 1 格執行 0.002 秒 (有使用物理寫在這裡)
     private void FixedUpdate()
     {
+        if (isAttack || isDamage) return;   // 跳出
+
         Walk();
         Jump();
     }
@@ -43,8 +67,6 @@ public class Lady : MonoBehaviour
     // 觸發事件：碰到勾選 IsTrigger 碰撞器開始時候執行一次
     private void OnTriggerEnter(Collider other)
     {
-        print(other.tag);
-
         if (other.tag == "陷阱")
         {
             Hurt();
